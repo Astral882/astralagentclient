@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代理注册 - Astral Time</title>
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="form-container">
+    <h1>代理注册</h1>
+
+    <form id="agentRegisterForm" method="POST" action="YOUR_AGENT_REGISTER_WEBHOOK_URL" enctype="multipart/form-data">
+        <input type="text" name="agentName" placeholder="代理姓名" required>
+        <input type="text" name="agentPhone" placeholder="代理电话" required>
+
+        <label>上传自拍照片</label>
+        <input type="file" name="agentSelfie" accept="image/*" capture="user" required>
+
+        <button type="submit">提交注册</button>
+    </form>
+</div>
+
+<footer>
+    Copyright ©️ 2025 Astral Time Limited. All rights reserved
+</footer>
+
+<script src="/firebase.js"></script>
+</body>
+</html>
