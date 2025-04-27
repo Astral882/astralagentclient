@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代理登录 - Astral Time</title>
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="form-container">
+    <h1>代理登录</h1>
+
+    <form id="agentLoginForm" method="POST" action="YOUR_AGENT_LOGIN_WEBHOOK_URL">
+        <input type="email" name="email" placeholder="代理电邮" required>
+        <input type="password" name="password" placeholder="密码" required>
+
+        <label>自拍认证（占位，可后接人脸识别）</label>
+        <input type="file" name="agentSelfie" accept="image/*" capture="user" required>
+
+        <button type="submit">登录</button>
+    </form>
+</div>
+
+<footer>
+    Copyright ©️ 2025 Astral Time Limited. All rights reserved
+</footer>
+
+<script src="/firebase.js"></script>
+</body>
+</html>
