@@ -1,36 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>代理后台 - Astral Time</title>
-    <link href="/assets/css/style.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astral Time Limited - Agent Dashboard</title>
+  <link href="./assets/css/style.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: black;
+      color: #FFD700;
+      font-family: Poppins, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .dashboard-card {
+      background-color: #111;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+    }
+    .info-box {
+      margin-top: 15px;
+      padding: 10px;
+      background: #222;
+      border: 1px solid #FFD700;
+      border-radius: 8px;
+    }
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: #FFD700;
+      margin-top: 30px;
+      padding: 15px 0;
+    }
+    .ip-info {
+      margin-top: 15px;
+      background: #222;
+      padding: 10px;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
 
-<div class="dashboard-container">
-    <h1>代理后台</h1>
+<div class="main-content">
+  <h1 style="font-size: 28px;">Astral Time Limited</h1>
+  <h2 style="font-size: 20px;">Agent Dashboard</h2>
 
-    <div class="account-section">
-        <p><strong>我的代理码:</strong> <span id="agentCode">加载中...</span></p>
-        <p><strong>推荐人数:</strong> <span id="referralsCount">加载中...</span> 人</p>
-        <p><strong>推荐总投资额:</strong> <span id="referralsInvestment">加载中...</span> 马币</p>
+  <div class="dashboard-card">
+
+    <div class="info-box">
+      <strong>Agent Code:</strong>
+      <p id="agentCode">Loading...</p>
     </div>
 
-    <div class="notice-section">
-        <h2>公司公告</h2>
-        <div id="notice">
-            加载中...
-        </div>
+    <div class="info-box">
+      <strong>Referrals Count:</strong>
+      <p id="referralsCount">Loading...</p>
     </div>
+
+    <div class="info-box">
+      <strong>Total Investment from Referrals:</strong>
+      <p id="referralsInvestment">Loading...</p>
+    </div>
+
+    <h3 style="margin-top: 30px;">Your IP Information</h3>
+    <div class="ip-info">
+      <strong>Your IP:</strong> <span id="userIP">Detecting...</span><br>
+      <strong>Country:</strong> <span id="userCountry">Detecting...</span><br>
+      <strong>City:</strong> <span id="userCity">Detecting...</span>
+    </div>
+
+  </div>
 </div>
 
 <footer>
-    Copyright ©️ 2025 Astral Time Limited. All rights reserved
+  Copyright ©️ 2025 Astral Time Limited. All rights reserved
 </footer>
 
-<script src="/firebase.js"></script>
-<script src="/notice.js"></script>
+<script src="./firebase.js"></script>
+
+<script>
+// 获取IP信息
+fetch('https://ipapi.co/json/')
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('userIP').innerText = data.ip;
+    document.getElementById('userCountry').innerText = data.country_name;
+    document.getElementById('userCity').innerText = data.city;
+  })
+  .catch(error => {
+    console.error("IP detection failed: ", error);
+  });
+</script>
 
 </body>
 </html>
