@@ -1,27 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>发布公司公告 - Astral Time</title>
-    <link href="/assets/css/style.css" rel="stylesheet">
-</head>
-<body>
+// firebase.js
 
-<div class="form-container">
-    <h1>发布公司公告</h1>
+// 配置你的Firebase连接资料
+const firebaseConfig = {
+  apiKey: "你的apiKey",
+  authDomain: "你的authDomain",
+  projectId: "你的projectId",
+  storageBucket: "你的storageBucket",
+  messagingSenderId: "你的messagingSenderId",
+  appId: "你的appId"
+};
 
-    <form id="announcementForm" method="POST" action="YOUR_ANNOUNCEMENT_WEBHOOK_URL">
-        <textarea name="noticeContent" placeholder="输入公告内容..." required></textarea>
-        <button type="submit">发布公告</button>
-    </form>
-</div>
+// 初始化Firebase
+firebase.initializeApp(firebaseConfig);
 
-<footer>
-    Copyright ©️ 2025 Astral Time Limited. All rights reserved
-</footer>
-
-<script src="/firebase.js"></script>
-
-</body>
-</html>
+// 初始化Firestore数据库
+const db = firebase.firestore();
