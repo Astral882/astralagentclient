@@ -1,31 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>投资者登录 - Astral Time</title>
-    <link href="/assets/css/style.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astral Time Limited - Investor Login</title>
+  <link href="./assets/css/style.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: black;
+      color: #FFD700;
+      font-family: Poppins, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .form-card {
+      background-color: #111;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      width: 90%;
+      max-width: 450px;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background: #222;
+      border: 1px solid #FFD700;
+      border-radius: 8px;
+      color: #FFD700;
+    }
+    .submit-btn {
+      background: linear-gradient(to right, #FFD700, #FFC107);
+      color: black;
+      font-weight: bold;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: #FFD700;
+      margin-top: 30px;
+      padding: 15px 0;
+    }
+    .ip-info {
+      margin-top: 15px;
+      background: #222;
+      padding: 10px;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
 
-<div class="form-container">
-    <h1>投资者登录</h1>
+<div class="main-content">
+  <h1 style="font-size: 28px;">Astral Time Limited</h1>
+  <h2 style="font-size: 20px;">Investor Login</h2>
 
-    <form id="loginForm" method="POST" action="YOUR_MAKE_WEBHOOK_URL">
-        <input type="email" name="email" placeholder="电邮" required>
-        <input type="password" name="password" placeholder="密码" required>
+  <div class="form-card">
+    <div id="cameraSection">
+      <video id="camera" autoplay playsinline width="300" height="300" style="border-radius: 50%; border: 5px solid gray;"></video><br>
+      <button id="captureBtn" onclick="takeSnapshot()" style="background:gray; color:white; margin-top:15px;" disabled>Capture Selfie</button>
+    </div>
 
-        <label>自拍认证（占位，可后接人脸识别）</label>
-        <input type="file" name="selfie" accept="image/*" capture="user" required>
+    <form id="loginForm" method="POST" action="YOUR_LOGIN_WEBHOOK_URL" enctype="multipart/form-data" style="display:none;">
 
-        <button type="submit">登录</button>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="password" name="password" placeholder="Password" required>
+
+      <label style="margin-top: 15px;">Upload Live Selfie for Verification</label>
+      <input type="hidden" name="selfieImage" id="selfieImage" required>
+
+      <div class="ip-info">
+        <strong>Your IP:</strong> <span id="userIP">Detecting...</span><br>
+        <strong>Country:</strong> <span id="userCountry">Detecting...</span><br>
+        <strong>City:</strong> <span id="userCity">Detecting...</span>
+      </div>
+
+      <button type="submit" class="submit-btn">Login</button>
     </form>
+  </div>
 </div>
 
 <footer>
-    Copyright ©️ 2025 Astral Time Limited. All rights reserved
+  Copyright ©️ 2025 Astral Time Limited. All rights reserved
 </footer>
 
-<script src="/firebase.js"></script>
+<script src="./firebase.js"></script>
+<script>
+// 打开摄像头
+const camera = document.getElementById('camera');
+navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+  .then(stream => {
+    camera.srcObject = stream;
+  })
+  .catch(err => {
+    alert('Camera access denied: ' + err);
+  });
+
+const captureBtn = document.getElementById('captureBtn');
+
+// 模拟识别成功（5秒后激活拍照按钮）
+setTimeout(() => {
+  captureBtn.style.background = "#FFD700";
+  captureBtn.disabled = false;
+}, 5000);
+
+// 拍照成功后显示表单
+function takeSnapshot() {
+  document.getElementById('cameraSection').style.display = 'none';
+  document.getElementById('loginForm').style.display = 'block';
+}
+
+// 获取IP信息
+fetch('https://ipapi.co/json/')
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('userIP').innerText = data.ip;
+    document.getElementById('userCountry').innerText = data.country_name;
+    document.getElementById('userCity').innerText = data.city;
+  })
+  .catch(error => {
+    console.error("IP detection failed: ", error);
+  });
+</script>
+
 </body>
 </html>
