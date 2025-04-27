@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投资者注册 - Astral Time</title>
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="form-container">
+    <h1>投资者注册</h1>
+
+    <form id="registerForm" method="POST" action="YOUR_MAKE_WEBHOOK_URL" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="姓名" required>
+        <input type="text" name="phone" placeholder="电话" required>
+        <input type="email" name="email" placeholder="电邮" required>
+        <input type="text" name="country" placeholder="国家" required>
+        <input type="date" name="birthday" placeholder="生日" required>
+        <input type="text" name="agentCode" placeholder="代理推荐码" required>
+
+        <label>上传自拍照片</label>
+        <input type="file" name="selfie" accept="image/*" capture="user" required>
+
+        <button type="submit">提交注册</button>
+    </form>
+
+</div>
+
+<footer>
+    Copyright ©️ 2025 Astral Time Limited. All rights reserved
+</footer>
+
+<script src="/firebase.js"></script>
+</body>
+</html>
